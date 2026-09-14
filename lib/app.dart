@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'core/router.dart';
 import 'features/auth/providers/auth_provider.dart';
 import 'features/favorites/providers/favorites_provider.dart';
+import 'features/watched/providers/watched_provider.dart';
 import 'features/episodes/providers/episode_provider.dart';
 
 class RMGuideApp extends StatelessWidget {
@@ -21,6 +22,9 @@ class RMGuideApp extends StatelessWidget {
 				),
 				ChangeNotifierProvider<FavoritesProvider>(
 					create: (_) => FavoritesProvider(),
+				),
+				ChangeNotifierProvider<WatchedProvider>(
+					create: (_) => WatchedProvider(),
 				),
 			],
 			child: MaterialApp(
