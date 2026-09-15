@@ -1,0 +1,54 @@
+import 'package:flutter/material.dart';
+import 'package:rick_and_morty_app/screens/catalog/catalog_screen.dart';
+import 'package:rick_and_morty_app/screens/favorites/favorites_screen.dart';
+import 'package:rick_and_morty_app/screens/profile/profile_screen.dart';
+import 'package:rick_and_morty_app/screens/watched/watched_screen.dart';
+import 'package:rick_and_morty_app/widgets/custom_bottom_nav.dart';
+
+/// Container Principal do Aplicativo com Navegação por Abas (Pág. 6)
+class MainShellScreen extends StatefulWidget {
+  final int initialIndex;
+
+  const MainShellScreen({
+    super.key,
+    this.initialIndex = 0,
+  });
+
+  @override
+  State<MainShellScreen> createState() => _MainShellScreenState();
+}
+
+class _MainShellScreenState extends State<MainShellScreen> {
+  late int _currentIndex;
+
+  final List<Widget> _screens = const [
+    CatalogScreen(),   // 1- Catálogo de Episódios
+    ProfileScreen(),   // 2- Perfil do Usuário para Edição
+    FavoritesScreen(), // 3- Episódios Favoritos
+    WatchedScreen(),   // 4- Episódios Assistidos
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = widget.initialIndex;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _screens,
+      ),
+      bottomNavigationBar: CustomBottomNav(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+      ),
+    );
+  }
+}
