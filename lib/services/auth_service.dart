@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rick_and_morty_app/models/user_model.dart';
 import 'package:rick_and_morty_app/services/firebase_user_data_service.dart';
 import 'package:rick_and_morty_app/services/local_storage_service.dart';
@@ -20,6 +21,8 @@ class AuthService {
 
   FirebaseUserDataService get _userDataService =>
       _firebaseUserDataService ??= FirebaseUserDataService();
+
+  GoogleSignIn get _googleSignIn => GoogleSignIn(scopes: ['email']);
 
   /// Realiza login de usuário
   Future<UserModel> login({
@@ -79,6 +82,54 @@ class AuthService {
     }
 
     throw Exception('Conta nao encontrada. Faca cadastro antes de entrar.');
+  }
+
+  /// Realiza login com Google
+  Future<UserModel> signInWithGoogle() async {
+    if (!_isFirebaseReady) {
+      throw Exception('Firebase nao inicializado.');
+    }
+
+    try {
+      final googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        throw Exception('Login com Google cancelado.');
+      }
+
+      final googleAuth = await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final userCredential = await _auth.signInWithCredential(credential);
+      final firebaseUser = userCredential.user;
+      if (firebaseUser == null) {
+        throw Exception('Nao foi possivel autenticar com Google.');
+      }
+
+      final displayName = firebaseUser.displayName?.trim().isNotEmpty == true
+          ? firebaseUser.displayName!.trim()
+          : googleUser.displayName?.trim().isNotEmpty == true
+              ? googleUser.displayName!.trim()
+              : _nameFromEmail(firebaseUser.email ?? googleUser.email);
+
+      final user = UserModel(
+        id: firebaseUser.uid,
+        name: displayName,
+        email: firebaseUser.email ?? googleUser.email,
+        photoUrl: firebaseUser.photoURL ?? googleUser.photoUrl,
+      );
+
+      await firebaseUser.updateDisplayName(displayName);
+      await _userDataService.upsertUserProfile(user);
+      await LocalStorageService.saveCurrentUser(user);
+      return user;
+    } on FirebaseAuthException catch (e) {
+      throw Exception(_mapFirebaseAuthError(e));
+    } catch (e) {
+      throw Exception(e.toString().replaceAll('Exception: ', ''));
+    }
   }
 
   /// Registra um novo usuário

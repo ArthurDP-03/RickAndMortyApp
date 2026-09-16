@@ -49,6 +49,21 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+  /// Realiza login com Google
+  Future<bool> loginWithGoogle() async {
+    _setLoading(true);
+    _clearError();
+    try {
+      _currentUser = await _authService.signInWithGoogle();
+      _setLoading(false);
+      return true;
+    } catch (e) {
+      _errorMessage = e.toString().replaceAll('Exception: ', '');
+      _setLoading(false);
+      return false;
+    }
+  }
+
   /// Realiza cadastro
   Future<bool> register({
     required String name,

@@ -54,6 +54,28 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  Future<void> _handleGoogleLogin() async {
+    final authProvider = context.read<AuthProvider>();
+    final success = await authProvider.loginWithGoogle();
+
+    if (!mounted) return;
+
+    if (success) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) => const MainShellScreen()),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            authProvider.errorMessage ?? 'Erro ao entrar com Google.',
+          ),
+          backgroundColor: AppColors.errorRed,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final authProvider = context.watch<AuthProvider>();
@@ -187,6 +209,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       isLoading: authProvider.isLoading,
                       onPressed: _handleLogin,
                       semanticLabel: 'Botão Entrar no Aplicativo',
+                    ),
+                    const SizedBox(height: 14),
+
+                    CustomButton(
+                      text: 'ENTRAR COM GOOGLE',
+                      backgroundColor: Colors.white,
+                      textColor: Colors.black,
+                      borderColor: Colors.black26,
+                      icon: Icons.g_mobiledata_rounded,
+                      isLoading: authProvider.isLoading,
+                      onPressed: _handleGoogleLogin,
+                      semanticLabel: 'Botão Entrar com Google',
                     ),
                     const SizedBox(height: 14),
 
