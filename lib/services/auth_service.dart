@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rick_and_morty_app/models/user_model.dart';
 import 'package:rick_and_morty_app/services/firebase_user_data_service.dart';
@@ -91,6 +92,37 @@ class AuthService {
     }
 
     try {
+      if (kIsWeb) {
+        final userCredential = await _auth.signInWithPopup(
+          GoogleAuthProvider(),
+        );
+
+        final firebaseUser = userCredential.user;
+        if (firebaseUser == null) {
+          throw Exception('Nao foi possivel autenticar com Google.');
+        }
+
+        final displayName = _resolveDisplayName(
+          firebaseUser.displayName,
+          null,
+          firebaseUser.email,
+          null,
+        );
+        final email = _resolveEmail(firebaseUser.email, null);
+
+        final user = UserModel(
+          id: firebaseUser.uid,
+          name: displayName,
+          email: email,
+          photoUrl: firebaseUser.photoURL,
+        );
+
+        await firebaseUser.updateDisplayName(displayName);
+        await _userDataService.upsertUserProfile(user);
+        await LocalStorageService.saveCurrentUser(user);
+        return user;
+      }
+
       final googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
         throw Exception('Login com Google cancelado.');
@@ -108,17 +140,20 @@ class AuthService {
         throw Exception('Nao foi possivel autenticar com Google.');
       }
 
-      final displayName = firebaseUser.displayName?.trim().isNotEmpty == true
-          ? firebaseUser.displayName!.trim()
-          : googleUser.displayName?.trim().isNotEmpty == true
-              ? googleUser.displayName!.trim()
-              : _nameFromEmail(firebaseUser.email ?? googleUser.email);
+      final displayName = _resolveDisplayName(
+        firebaseUser.displayName,
+        googleUser.displayName,
+        firebaseUser.email,
+        googleUser.email,
+      );
+      final email = _resolveEmail(firebaseUser.email, googleUser.email);
+      final photoUrl = firebaseUser.photoURL ?? googleUser.photoUrl;
 
       final user = UserModel(
         id: firebaseUser.uid,
         name: displayName,
-        email: firebaseUser.email ?? googleUser.email,
-        photoUrl: firebaseUser.photoURL ?? googleUser.photoUrl,
+        email: email,
+        photoUrl: photoUrl,
       );
 
       await firebaseUser.updateDisplayName(displayName);
@@ -250,6 +285,39 @@ class AuthService {
       return 'Viajante Dimensional';
     }
     return '${base[0].toUpperCase()}${base.substring(1)}';
+  }
+
+  String _resolveDisplayName(
+    String? firebaseDisplayName,
+    String? googleDisplayName,
+    String? firebaseEmail,
+    String? googleEmail,
+  ) {
+    final firebaseName = firebaseDisplayName?.trim();
+    if (firebaseName != null && firebaseName.isNotEmpty) {
+      return firebaseName;
+    }
+
+    final googleName = googleDisplayName?.trim();
+    if (googleName != null && googleName.isNotEmpty) {
+      return googleName;
+    }
+
+    return _nameFromEmail(_resolveEmail(firebaseEmail, googleEmail));
+  }
+
+  String _resolveEmail(String? firebaseEmail, String? googleEmail) {
+    final firebaseValue = firebaseEmail?.trim();
+    if (firebaseValue != null && firebaseValue.isNotEmpty) {
+      return firebaseValue;
+    }
+
+    final googleValue = googleEmail?.trim();
+    if (googleValue != null && googleValue.isNotEmpty) {
+      return googleValue;
+    }
+
+    return 'user@local.invalid';
   }
 
   String _mapFirebaseAuthError(FirebaseAuthException error) {
