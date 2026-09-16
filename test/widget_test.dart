@@ -3,9 +3,11 @@ import 'package:rick_and_morty_app/main.dart';
 import 'package:rick_and_morty_app/models/episode_model.dart';
 import 'package:rick_and_morty_app/providers/favorites_provider.dart';
 import 'package:rick_and_morty_app/providers/watched_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences.setMockInitialValues({});
 
   testWidgets('App smoke test - loads Rick and Morty App',
       (WidgetTester tester) async {
@@ -30,8 +32,8 @@ void main() {
         'https://rickandmortyapi.com/api/character/avatar/1.jpeg');
   });
 
-  test('FavoritesProvider adds and sorts episodes in ascending order', () {
-    final provider = FavoritesProvider();
+  test('FavoritesProvider adds and sorts episodes in ascending order', () async {
+    final provider = FavoritesProvider(autoLoad: false);
     final ep1 = Episode(
       id: 2,
       name: 'Lawnmower Dog',
@@ -52,8 +54,8 @@ void main() {
     );
 
     // Adiciona na ordem inversa
-    provider.toggleFavorite(ep1);
-    provider.toggleFavorite(ep2);
+    await provider.toggleFavorite(ep1);
+    await provider.toggleFavorite(ep2);
 
     expect(provider.count, 2);
     // Deve estar ordenado em ordem crescente S01E01, S01E02
@@ -61,8 +63,8 @@ void main() {
     expect(provider.favorites.last.episode, 'S01E02');
   });
 
-  test('WatchedProvider adds and toggles watched episodes', () {
-    final provider = WatchedProvider();
+  test('WatchedProvider adds and toggles watched episodes', () async {
+    final provider = WatchedProvider(autoLoad: false);
     final ep = Episode(
       id: 1,
       name: 'Pilot',
@@ -73,10 +75,10 @@ void main() {
       created: '',
     );
 
-    provider.toggleWatched(ep);
+    await provider.toggleWatched(ep);
     expect(provider.isWatched(1), true);
 
-    provider.toggleWatched(ep);
+    await provider.toggleWatched(ep);
     expect(provider.isWatched(1), false);
   });
 }

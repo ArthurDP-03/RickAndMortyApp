@@ -46,5 +46,4 @@ app.*.map.json
 
 # Environment & Private Project Plan
 .env
-.env.example
 PLANO_PROJETO.md

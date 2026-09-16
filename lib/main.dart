@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:provider/provider.dart';
 import 'package:rick_and_morty_app/config/app_theme.dart';
 import 'package:rick_and_morty_app/config/env_config.dart';
+import 'package:rick_and_morty_app/firebase_options.dart';
 import 'package:rick_and_morty_app/providers/auth_provider.dart';
 import 'package:rick_and_morty_app/providers/episode_provider.dart';
 import 'package:rick_and_morty_app/providers/favorites_provider.dart';
@@ -15,6 +18,14 @@ void main() async {
 
   // Inicializa leitura do arquivo .env com fallbacks
   await EnvConfig.initialize();
+
+  // No Web, sempre inicializa Firebase com opcoes da plataforma.
+  // Em outras plataformas, inicializa quando houver configuracao disponivel.
+  if (kIsWeb || EnvConfig.isFirebaseConfigured) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  }
 
   runApp(const RickAndMortyApp());
 }
@@ -32,11 +43,19 @@ class RickAndMortyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => EpisodeProvider(),
         ),
-        ChangeNotifierProvider(
+        ChangeNotifierProxyProvider<AuthProvider, FavoritesProvider>(
           create: (_) => FavoritesProvider(),
+          update: (_, authProvider, favoritesProvider) {
+            favoritesProvider?.setCurrentUser(authProvider.currentUser);
+            return favoritesProvider ?? FavoritesProvider();
+          },
         ),
-        ChangeNotifierProvider(
+        ChangeNotifierProxyProvider<AuthProvider, WatchedProvider>(
           create: (_) => WatchedProvider(),
+          update: (_, authProvider, watchedProvider) {
+            watchedProvider?.setCurrentUser(authProvider.currentUser);
+            return watchedProvider ?? WatchedProvider();
+          },
         ),
       ],
       child: MaterialApp(
