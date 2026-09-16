@@ -9,7 +9,6 @@ import 'package:rick_and_morty_app/widgets/custom_button.dart';
 import 'package:rick_and_morty_app/widgets/custom_text_field.dart';
 import 'package:rick_and_morty_app/widgets/portal_background.dart';
 
-/// Tela de Login com Tema Morty e Fundo Portal
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -94,7 +93,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // Título Oficial Estilizado
                     Text(
                       'RICK AND MORTY',
                       textAlign: TextAlign.center,
@@ -126,8 +124,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     const SizedBox(height: 20),
-
-                    // Avatar Temático Morty
                     Center(
                       child: Container(
                         width: 110,
@@ -162,8 +158,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     const SizedBox(height: 24),
-
-                    // Campo de E-mail
                     CustomTextField(
                       controller: _emailController,
                       label: 'E-mail',
@@ -181,8 +175,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                     ),
                     const SizedBox(height: 16),
-
-                    // Campo de Senha com Ícone de Olho
                     CustomTextField(
                       controller: _passwordController,
                       label: 'Senha',
@@ -200,8 +192,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                     ),
                     const SizedBox(height: 24),
-
-                    // Botão de Login
                     CustomButton(
                       text: 'LOGIN',
                       backgroundColor: AppColors.portalGreen,
@@ -211,7 +201,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       semanticLabel: 'Botão Entrar no Aplicativo',
                     ),
                     const SizedBox(height: 14),
-
                     CustomButton(
                       text: 'ENTRAR COM GOOGLE',
                       backgroundColor: Colors.white,
@@ -223,8 +212,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       semanticLabel: 'Botão Entrar com Google',
                     ),
                     const SizedBox(height: 14),
-
-                    // Link para Tela de Cadastro
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).push(

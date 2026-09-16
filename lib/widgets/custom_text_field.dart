@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty_app/config/app_colors.dart';
 
-/// Campo de Texto Customizado com Estilo Cartoon e Suporte a Senha
 class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
   final String label;

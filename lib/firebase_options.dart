@@ -2,10 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb, TargetPlatform;
 import 'package:rick_and_morty_app/config/env_config.dart';
 
-/// Opcoes de inicializacao do Firebase por plataforma.
-///
-/// Este arquivo substitui a versao gerada pelo FlutterFire CLI enquanto
-/// o projeto usa variaveis via .env.
 class DefaultFirebaseOptions {
   static const String _webApiKey = 'AIzaSyDKSwkuvPt85MKovrg6XMwXGvdmMufQgVE';
   static const String _webAppId = '1:66954574456:web:7008b1f63ab360c89a4b8d';

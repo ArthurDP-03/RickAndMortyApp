@@ -4,7 +4,6 @@ import 'package:rick_and_morty_app/config/constants.dart';
 import 'package:rick_and_morty_app/models/episode_model.dart';
 import 'package:rick_and_morty_app/models/user_model.dart';
 
-/// Serviço de Armazenamento Local usando SharedPreferences
 class LocalStorageService {
   static SharedPreferences? _preferences;
 
@@ -13,7 +12,6 @@ class LocalStorageService {
     return _preferences!;
   }
 
-  // --- FAVORITOS ---
   static Future<List<Episode>> getFavorites() async {
     final prefs = await _instance;
     final jsonList = prefs.getStringList(AppConstants.storageKeyFavorites) ?? [];
@@ -28,7 +26,6 @@ class LocalStorageService {
     await prefs.setStringList(AppConstants.storageKeyFavorites, jsonList);
   }
 
-  // --- ASSISTIDOS / CONSUMIDOS ---
   static Future<List<Episode>> getWatched() async {
     final prefs = await _instance;
     final jsonList = prefs.getStringList(AppConstants.storageKeyWatched) ?? [];
@@ -43,7 +40,6 @@ class LocalStorageService {
     await prefs.setStringList(AppConstants.storageKeyWatched, jsonList);
   }
 
-  // --- SESSÃO E USUÁRIO ---
   static Future<UserModel?> getCurrentUser() async {
     final prefs = await _instance;
     final userJson = prefs.getString(AppConstants.storageKeyUser);
@@ -74,7 +70,6 @@ class LocalStorageService {
     await prefs.setBool(AppConstants.storageKeyIsLoggedIn, false);
   }
 
-  // --- BASE DE USUÁRIOS REGISTRADOS LOCALMENTE ---
   static Future<Map<String, dynamic>> getRegisteredAccounts() async {
     final prefs = await _instance;
     final raw = prefs.getString(AppConstants.storageKeyUsersList);

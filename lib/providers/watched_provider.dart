@@ -7,7 +7,6 @@ import 'package:rick_and_morty_app/models/user_model.dart';
 import 'package:rick_and_morty_app/services/firebase_user_data_service.dart';
 import 'package:rick_and_morty_app/services/local_storage_service.dart';
 
-/// Provedor Global de Episódios Assistidos / Consumidos (RF06, RF07)
 class WatchedProvider extends ChangeNotifier {
   FirebaseUserDataService? _firebaseUserDataService;
   StreamSubscription<List<Episode>>? _watchedSubscription;
@@ -41,7 +40,6 @@ class WatchedProvider extends ChangeNotifier {
     loadWatched();
   }
 
-  /// Retorna lista de assistidos ordenada crescentemente por temporada e episódio
   List<Episode> get watched {
     final sortedList = List<Episode>.from(_watched);
     sortedList.sort((a, b) {
@@ -56,7 +54,6 @@ class WatchedProvider extends ChangeNotifier {
   int get count => _watched.length;
   bool get isLoading => _isLoading;
 
-  /// Carrega a lista de assistidos do armazenamento local
   Future<void> loadWatched() async {
     _isLoading = true;
     notifyListeners();
@@ -68,7 +65,6 @@ class WatchedProvider extends ChangeNotifier {
         final cloudWatched = await _cloudService.getWatched(userId);
 
         if (cloudWatched.isEmpty && localWatched.isNotEmpty) {
-          // Migra dados locais para nuvem no primeiro login para esse usuario.
           await _cloudService.saveWatched(userId, localWatched);
           _watched = localWatched;
         } else {
@@ -86,12 +82,10 @@ class WatchedProvider extends ChangeNotifier {
     }
   }
 
-  /// Verifica se um episódio já foi assistido
   bool isWatched(int episodeId) {
     return _watched.any((ep) => ep.id == episodeId);
   }
 
-  /// Alterna o status de assistido de um episódio
   Future<void> toggleWatched(Episode episode) async {
     final exists = isWatched(episode.id);
     if (exists) {

@@ -8,7 +8,6 @@ import 'package:rick_and_morty_app/providers/watched_provider.dart';
 import 'package:rick_and_morty_app/screens/details/episode_details_screen.dart';
 import 'package:rick_and_morty_app/widgets/cartoon_card.dart';
 
-/// Card de Episódio na Grade com Imagem/Placeholder, Título e Badges (RF01, RF02)
 class EpisodeGridCard extends StatelessWidget {
   final Episode episode;
 
@@ -36,7 +35,6 @@ class EpisodeGridCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Banner / Imagem com Badges Flutuantes
           Expanded(
             flex: 3,
             child: Stack(
@@ -68,8 +66,6 @@ class EpisodeGridCard extends StatelessWidget {
                     ),
                   ),
                 ),
-
-                // Gradiente de sobreposição para contraste
                 Positioned.fill(
                   child: Container(
                     decoration: BoxDecoration(
@@ -85,8 +81,6 @@ class EpisodeGridCard extends StatelessWidget {
                     ),
                   ),
                 ),
-
-                // Badge de Temporada / Episódio (ex: S01E09)
                 Positioned(
                   top: 8,
                   left: 8,
@@ -116,8 +110,6 @@ class EpisodeGridCard extends StatelessWidget {
                     ),
                   ),
                 ),
-
-                // Indicadores de Favorito e Assistido
                 Positioned(
                   top: 8,
                   right: 8,
@@ -158,8 +150,6 @@ class EpisodeGridCard extends StatelessWidget {
               ],
             ),
           ),
-
-          // Informações do Episódio (Nome e Data de Lançamento)
           Expanded(
             flex: 2,
             child: Padding(

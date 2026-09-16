@@ -7,7 +7,6 @@ import 'package:rick_and_morty_app/models/user_model.dart';
 import 'package:rick_and_morty_app/services/firebase_user_data_service.dart';
 import 'package:rick_and_morty_app/services/local_storage_service.dart';
 
-/// Provedor Global de Episódios Favoritos (RF04, RF05, RF06)
 class FavoritesProvider extends ChangeNotifier {
   FirebaseUserDataService? _firebaseUserDataService;
   StreamSubscription<List<Episode>>? _favoritesSubscription;
@@ -41,7 +40,6 @@ class FavoritesProvider extends ChangeNotifier {
     loadFavorites();
   }
 
-  /// Retorna lista de favoritos ordenada crescentemente por temporada e episódio
   List<Episode> get favorites {
     final sortedList = List<Episode>.from(_favorites);
     sortedList.sort((a, b) {
@@ -56,7 +54,6 @@ class FavoritesProvider extends ChangeNotifier {
   int get count => _favorites.length;
   bool get isLoading => _isLoading;
 
-  /// Carrega os favoritos do armazenamento local
   Future<void> loadFavorites() async {
     _isLoading = true;
     notifyListeners();
@@ -68,7 +65,6 @@ class FavoritesProvider extends ChangeNotifier {
         final cloudFavorites = await _cloudService.getFavorites(userId);
 
         if (cloudFavorites.isEmpty && localFavorites.isNotEmpty) {
-          // Migra dados locais para nuvem no primeiro login para esse usuario.
           await _cloudService.saveFavorites(userId, localFavorites);
           _favorites = localFavorites;
         } else {
@@ -86,12 +82,10 @@ class FavoritesProvider extends ChangeNotifier {
     }
   }
 
-  /// Verifica se um episódio está favoritado
   bool isFavorite(int episodeId) {
     return _favorites.any((ep) => ep.id == episodeId);
   }
 
-  /// Alterna o estado de favorito de um episódio
   Future<void> toggleFavorite(Episode episode) async {
     final exists = isFavorite(episode.id);
     if (exists) {

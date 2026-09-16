@@ -2,7 +2,6 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty_app/config/app_colors.dart';
 
-/// Plano de Fundo Dinâmico com Efeito de Portal Dimensional Rick and Morty
 class PortalBackground extends StatefulWidget {
   final Widget child;
   final bool showPortalEffect;
@@ -42,7 +41,6 @@ class _PortalBackgroundState extends State<PortalBackground>
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // Fundo Espacial com Gradiente Escuro
         Container(
           decoration: const BoxDecoration(
             gradient: RadialGradient(
@@ -56,8 +54,6 @@ class _PortalBackgroundState extends State<PortalBackground>
             ),
           ),
         ),
-
-        // Efeito de Portal em Espiral
         if (widget.showPortalEffect)
           Positioned.fill(
             child: AnimatedBuilder(
@@ -72,8 +68,6 @@ class _PortalBackgroundState extends State<PortalBackground>
               },
             ),
           ),
-
-        // Conteúdo Principal
         SafeArea(child: widget.child),
       ],
     );
@@ -94,7 +88,6 @@ class _PortalPainter extends CustomPainter {
     final center = Offset(size.width * 0.5, size.height * 0.22);
     final maxRadius = size.width * 0.45;
 
-    // Brilho difuso do portal
     final glowPaint = Paint()
       ..shader = RadialGradient(
         colors: [
@@ -107,7 +100,6 @@ class _PortalPainter extends CustomPainter {
 
     canvas.drawCircle(center, maxRadius * 1.4, glowPaint);
 
-    // Aneis de plasma dimensional
     for (int i = 1; i <= 4; i++) {
       final ringRadius = maxRadius * (i / 4.0);
       final angleOffset = (animationValue * 2 * math.pi * (i % 2 == 0 ? 1 : -1)) +

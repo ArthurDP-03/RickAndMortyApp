@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rick_and_morty_app/config/app_colors.dart';
 
-/// Tema Cartoonesco do Aplicativo RM Guide
 class AppTheme {
   static ThemeData get darkTheme {
     return ThemeData(

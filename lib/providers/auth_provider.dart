@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:rick_and_morty_app/models/user_model.dart';
 import 'package:rick_and_morty_app/services/auth_service.dart';
 
-/// Provedor Global de Autenticação e Sessão de Usuário
 class AuthProvider extends ChangeNotifier {
   final AuthService _authService;
   UserModel? _currentUser;
@@ -17,7 +16,6 @@ class AuthProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
 
-  /// Inicializa a sessão ao abrir o app
   Future<void> checkCurrentSession() async {
     _isLoading = true;
     notifyListeners();
@@ -31,7 +29,6 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  /// Realiza login
   Future<bool> login(String email, String password) async {
     _setLoading(true);
     _clearError();
@@ -49,7 +46,6 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  /// Realiza login com Google
   Future<bool> loginWithGoogle() async {
     _setLoading(true);
     _clearError();
@@ -64,7 +60,6 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  /// Realiza cadastro
   Future<bool> register({
     required String name,
     required String email,
@@ -89,7 +84,6 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  /// Atualiza o perfil do usuário atual
   Future<bool> updateProfile(UserModel updatedUser) async {
     _setLoading(true);
     try {
@@ -103,7 +97,6 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  /// Desconecta a conta
   Future<void> logout() async {
     await _authService.logout();
     _currentUser = null;

@@ -5,7 +5,6 @@ import 'package:rick_and_morty_app/screens/profile/profile_screen.dart';
 import 'package:rick_and_morty_app/screens/watched/watched_screen.dart';
 import 'package:rick_and_morty_app/widgets/custom_bottom_nav.dart';
 
-/// Container Principal do Aplicativo com Navegação por Abas (Pág. 6)
 class MainShellScreen extends StatefulWidget {
   final int initialIndex;
 
@@ -22,10 +21,10 @@ class _MainShellScreenState extends State<MainShellScreen> {
   late int _currentIndex;
 
   final List<Widget> _screens = const [
-    CatalogScreen(),   // 1- Catálogo de Episódios
-    ProfileScreen(),   // 2- Perfil do Usuário para Edição
-    FavoritesScreen(), // 3- Episódios Favoritos
-    WatchedScreen(),   // 4- Episódios Assistidos
+    CatalogScreen(),
+    ProfileScreen(),
+    FavoritesScreen(),
+    WatchedScreen(),
   ];
 
   @override

@@ -6,7 +6,6 @@ import 'package:rick_and_morty_app/providers/watched_provider.dart';
 import 'package:rick_and_morty_app/screens/catalog/widgets/episode_grid_card.dart';
 import 'package:rick_and_morty_app/widgets/custom_button.dart';
 
-/// Tela de Episódios Assistidos / Consumidos em Ordem Crescente (RF06, RF07)
 class WatchedScreen extends StatefulWidget {
   const WatchedScreen({super.key});
 
@@ -15,7 +14,7 @@ class WatchedScreen extends StatefulWidget {
 }
 
 class _WatchedScreenState extends State<WatchedScreen> {
-  int _displayedLimit = 10; // 10 episódios por página
+  int _displayedLimit = 10;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,6 @@ class _WatchedScreenState extends State<WatchedScreen> {
     final allWatched = watchedProvider.watched;
     final width = MediaQuery.of(context).size.width;
 
-    // Paginação local de 10 por 10
     final visibleWatched = allWatched.take(_displayedLimit).toList();
     final hasMore = visibleWatched.length < allWatched.length;
 
@@ -109,8 +107,6 @@ class _WatchedScreenState extends State<WatchedScreen> {
                     ),
                   ),
                 ),
-
-                // Botão "Carregar Mais" quando há mais de 10 itens
                 if (hasMore)
                   SliverToBoxAdapter(
                     child: Padding(

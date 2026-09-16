@@ -1,4 +1,3 @@
-/// Modelo de Episódio da API Rick and Morty
 class Episode {
   final int id;
   final String name;
@@ -18,7 +17,6 @@ class Episode {
     required this.created,
   });
 
-  /// Identificador formatado da Temporada (ex: "S01" -> 1)
   int get seasonNumber {
     final match = RegExp(r'S(\d+)E(\d+)').firstMatch(episode);
     if (match != null) {
@@ -27,7 +25,6 @@ class Episode {
     return 1;
   }
 
-  /// Identificador formatado do Episódio (ex: "E09" -> 9)
   int get episodeNumber {
     final match = RegExp(r'S(\d+)E(\d+)').firstMatch(episode);
     if (match != null) {
@@ -36,7 +33,6 @@ class Episode {
     return id;
   }
 
-  /// Thumbnail representativa baseada no primeiro personagem ou fallback
   String get thumbnailPlaceholder {
     if (characters.isNotEmpty) {
       final match = RegExp(r'/(\d+)$').firstMatch(characters.first);

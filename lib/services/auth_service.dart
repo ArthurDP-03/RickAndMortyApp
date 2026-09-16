@@ -6,7 +6,6 @@ import 'package:rick_and_morty_app/models/user_model.dart';
 import 'package:rick_and_morty_app/services/firebase_user_data_service.dart';
 import 'package:rick_and_morty_app/services/local_storage_service.dart';
 
-/// Serviço Unificado de Autenticação (Local + Suporte a Firebase)
 class AuthService {
   FirebaseAuth? _firebaseAuth;
   FirebaseUserDataService? _firebaseUserDataService;
@@ -25,14 +24,12 @@ class AuthService {
 
   GoogleSignIn get _googleSignIn => GoogleSignIn(scopes: ['email']);
 
-  /// Realiza login de usuário
   Future<UserModel> login({
     required String email,
     required String password,
   }) async {
     final cleanEmail = email.toLowerCase().trim();
 
-    // Se Firebase estiver configurado no .env, usa autenticacao real do Firebase Auth.
     if (_isFirebaseReady) {
       try {
         final credential = await _auth.signInWithEmailAndPassword(
@@ -67,7 +64,6 @@ class AuthService {
       }
     }
 
-    // Autenticação Local persistente
     final accounts = await LocalStorageService.getRegisteredAccounts();
     if (accounts.containsKey(cleanEmail)) {
       final accountData = accounts[cleanEmail] as Map<String, dynamic>;
@@ -85,7 +81,6 @@ class AuthService {
     throw Exception('Conta nao encontrada. Faca cadastro antes de entrar.');
   }
 
-  /// Realiza login com Google
   Future<UserModel> signInWithGoogle() async {
     if (!_isFirebaseReady) {
       throw Exception('Firebase nao inicializado.');
@@ -167,7 +162,6 @@ class AuthService {
     }
   }
 
-  /// Registra um novo usuário
   Future<UserModel> register({
     required String name,
     required String email,
@@ -232,7 +226,6 @@ class AuthService {
     return user;
   }
 
-  /// Atualiza o perfil do usuário
   Future<UserModel> updateProfile(UserModel updatedUser) async {
     if (_isFirebaseReady) {
       await _userDataService.upsertUserProfile(updatedUser);
@@ -242,7 +235,6 @@ class AuthService {
     return updatedUser;
   }
 
-  /// Desconecta o usuário
   Future<void> logout() async {
     if (_isFirebaseReady) {
       await _auth.signOut();
@@ -250,7 +242,6 @@ class AuthService {
     await LocalStorageService.clearSession();
   }
 
-  /// Recupera o usuário atualmente logado
   Future<UserModel?> getCurrentUser() async {
     if (_isFirebaseReady) {
       final firebaseUser = _auth.currentUser;

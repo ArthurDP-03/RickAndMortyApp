@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rick_and_morty_app/config/app_colors.dart';
 
-/// Botão Estilizado Cartoonesco com Estado de Carregamento e Acessibilidade
 class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;

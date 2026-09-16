@@ -1,4 +1,3 @@
-/// Modelo de Personagem da API Rick and Morty
 class Character {
   final int id;
   final String name;

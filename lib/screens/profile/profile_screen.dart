@@ -11,7 +11,6 @@ import 'package:rick_and_morty_app/widgets/cartoon_card.dart';
 import 'package:rick_and_morty_app/widgets/custom_button.dart';
 import 'package:rick_and_morty_app/widgets/custom_text_field.dart';
 
-/// Tela de Perfil do Usuário com Edição e Estatísticas (Pág. 6)
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
@@ -185,7 +184,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Avatar e Dados Principais
                 Center(
                   child: Stack(
                     children: [
@@ -250,8 +248,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 const SizedBox(height: 24),
-
-                // Painel de Estatísticas
                 Row(
                   children: [
                     Expanded(
@@ -274,8 +270,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                 ),
                 const SizedBox(height: 20),
-
-                // Formulário de Edição / Visualização
                 CartoonCard(
                   backgroundColor: AppColors.spaceCard,
                   child: Column(
@@ -316,8 +310,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 const SizedBox(height: 24),
-
-                // Botão de Logout
                 CustomButton(
                   text: 'DESCONECTAR',
                   icon: Icons.logout_rounded,

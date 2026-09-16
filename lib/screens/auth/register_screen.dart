@@ -9,7 +9,6 @@ import 'package:rick_and_morty_app/widgets/custom_button.dart';
 import 'package:rick_and_morty_app/widgets/custom_text_field.dart';
 import 'package:rick_and_morty_app/widgets/portal_background.dart';
 
-/// Tela de Cadastro com Tema Rick Sanchez e Fundo Portal
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
@@ -112,7 +111,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // Título Rick and Morty
                     Text(
                       'RICK AND MORTY',
                       textAlign: TextAlign.center,
@@ -144,8 +142,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                     const SizedBox(height: 18),
-
-                    // Avatar Temático Rick Sanchez
                     Center(
                       child: Container(
                         width: 100,
@@ -180,8 +176,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                     const SizedBox(height: 20),
-
-                    // Campo de Nome Completo
                     CustomTextField(
                       controller: _nameController,
                       label: 'Nome Completo',
@@ -195,8 +189,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },
                     ),
                     const SizedBox(height: 14),
-
-                    // Campo de E-mail
                     CustomTextField(
                       controller: _emailController,
                       label: 'E-mail',
@@ -214,8 +206,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },
                     ),
                     const SizedBox(height: 14),
-
-                    // Campo de Data de Nascimento
                     CustomTextField(
                       controller: _birthDateController,
                       label: 'Data de Nascimento',
@@ -231,8 +221,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },
                     ),
                     const SizedBox(height: 14),
-
-                    // Campo de Senha com Ícone de Olho
                     CustomTextField(
                       controller: _passwordController,
                       label: 'Senha',
@@ -250,8 +238,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },
                     ),
                     const SizedBox(height: 14),
-
-                    // Campo de Confirmar Senha com Ícone de Olho
                     CustomTextField(
                       controller: _confirmPasswordController,
                       label: 'Confirmar Senha',
@@ -266,8 +252,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },
                     ),
                     const SizedBox(height: 22),
-
-                    // Botão Cadastrar
                     CustomButton(
                       text: 'CADASTRAR',
                       backgroundColor: AppColors.rickHairBlue,
@@ -277,8 +261,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       semanticLabel: 'Botão Cadastrar Conta',
                     ),
                     const SizedBox(height: 12),
-
-                    // Link Já tem conta? Login
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();

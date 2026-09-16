@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty_app/config/app_colors.dart';
 
-/// Card Estilizado com Borda Cartoonesca e Sombra de Destaque
 class CartoonCard extends StatelessWidget {
   final Widget child;
   final EdgeInsetsGeometry? padding;

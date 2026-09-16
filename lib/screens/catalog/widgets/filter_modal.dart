@@ -6,7 +6,6 @@ import 'package:rick_and_morty_app/providers/episode_provider.dart';
 import 'package:rick_and_morty_app/widgets/custom_button.dart';
 import 'package:rick_and_morty_app/widgets/custom_text_field.dart';
 
-/// Modal de Filtros Avançados para o Catálogo (RF01, Filtros da Pág. 7)
 class FilterModal extends StatefulWidget {
   const FilterModal({super.key});
 
@@ -91,8 +90,6 @@ class _FilterModalState extends State<FilterModal> {
             ),
             const Divider(color: AppColors.spaceCardLight),
             const SizedBox(height: 12),
-
-            // Filtro 1: Nome do Episódio
             CustomTextField(
               controller: _nameController,
               label: 'Nome do Episódio (name)',
@@ -100,8 +97,6 @@ class _FilterModalState extends State<FilterModal> {
               prefixIcon: Icons.title_rounded,
             ),
             const SizedBox(height: 12),
-
-            // Filtro 2: Código Temporada / Episódio
             CustomTextField(
               controller: _seasonController,
               label: 'Temporada / Código (episode)',
@@ -109,8 +104,6 @@ class _FilterModalState extends State<FilterModal> {
               prefixIcon: Icons.video_library_rounded,
             ),
             const SizedBox(height: 12),
-
-            // Filtro 3: Data de Lançamento
             CustomTextField(
               controller: _airDateController,
               label: 'Data de Lançamento (air_date)',
@@ -118,8 +111,6 @@ class _FilterModalState extends State<FilterModal> {
               prefixIcon: Icons.calendar_month_rounded,
             ),
             const SizedBox(height: 20),
-
-            // Ações
             Row(
               children: [
                 Expanded(

@@ -12,7 +12,6 @@ import 'package:rick_and_morty_app/services/api_service.dart';
 import 'package:rick_and_morty_app/widgets/cartoon_card.dart';
 import 'package:rick_and_morty_app/widgets/loading_indicator.dart';
 
-/// Tela de Detalhes Completos do Episódio (RF03, RF04, RF07)
 class EpisodeDetailsScreen extends StatefulWidget {
   final Episode episode;
 
@@ -47,7 +46,6 @@ class _EpisodeDetailsScreenState extends State<EpisodeDetailsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        // 1. Botão Voltar no Canto Superior Esquerdo
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new_rounded),
           tooltip: 'Voltar para o catálogo',
@@ -61,9 +59,7 @@ class _EpisodeDetailsScreenState extends State<EpisodeDetailsScreen> {
             letterSpacing: 1.2,
           ),
         ),
-        // 3. Botões de Favoritar e Assistido na Parte Superior Direita
         actions: [
-          // Botão Assistido (Ícone Olho Temático - RF07)
           IconButton(
             icon: Icon(
               isWatched
@@ -92,8 +88,6 @@ class _EpisodeDetailsScreenState extends State<EpisodeDetailsScreen> {
               );
             },
           ),
-
-          // Botão Favorito (Ícone Coração Gosma Verde / Estrela - RF04)
           IconButton(
             icon: Icon(
               isFavorite ? Icons.favorite_rounded : Icons.favorite_border_rounded,
@@ -131,7 +125,6 @@ class _EpisodeDetailsScreenState extends State<EpisodeDetailsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Banner / Imagem em Tamanho Maior com Moldura Cartoonesca
                 CartoonCard(
                   padding: EdgeInsets.zero,
                   child: Stack(
@@ -206,8 +199,6 @@ class _EpisodeDetailsScreenState extends State<EpisodeDetailsScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-
-                // 2. Informações e Atributos Completos do Episódio
                 CartoonCard(
                   backgroundColor: AppColors.spaceCard,
                   child: Column(
@@ -251,8 +242,6 @@ class _EpisodeDetailsScreenState extends State<EpisodeDetailsScreen> {
                   ),
                 ),
                 const SizedBox(height: 20),
-
-                // Lista de Personagens Presentes no Episódio (RF03)
                 Row(
                   children: [
                     const Icon(
@@ -272,8 +261,6 @@ class _EpisodeDetailsScreenState extends State<EpisodeDetailsScreen> {
                   ],
                 ),
                 const SizedBox(height: 12),
-
-                // FutureBuilder para Carregamento Dinâmico de Personagens (RF09)
                 FutureBuilder<List<Character>>(
                   future: _charactersFuture,
                   builder: (context, snapshot) {

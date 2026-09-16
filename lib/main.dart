@@ -16,11 +16,8 @@ import 'package:rick_and_morty_app/widgets/loading_indicator.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Inicializa leitura do arquivo .env com fallbacks
   await EnvConfig.initialize();
 
-  // No Web, sempre inicializa Firebase com opcoes da plataforma.
-  // Em outras plataformas, inicializa quando houver configuracao disponivel.
   if (kIsWeb || EnvConfig.isFirebaseConfigured) {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
@@ -68,7 +65,6 @@ class RickAndMortyApp extends StatelessWidget {
   }
 }
 
-/// Portão de Autenticação (RF07: O app deve exigir login antes de exibir o catálogo)
 class AuthGate extends StatelessWidget {
   const AuthGate({super.key});
 

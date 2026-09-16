@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:rick_and_morty_app/models/episode_model.dart';
 import 'package:rick_and_morty_app/services/api_service.dart';
 
-/// Provedor Global do Catálogo de Episódios
 class EpisodeProvider extends ChangeNotifier {
   final ApiService _apiService;
 
@@ -13,7 +12,6 @@ class EpisodeProvider extends ChangeNotifier {
   int _currentPage = 1;
   int _totalPages = 1;
 
-  // Filtros ativos
   String _searchQuery = '';
   String _filterSeason = '';
   String _filterAirDate = '';
@@ -37,7 +35,6 @@ class EpisodeProvider extends ChangeNotifier {
   String get filterSeason => _filterSeason;
   String get filterAirDate => _filterAirDate;
 
-  /// Busca inicial ou reset com filtros atuais
   Future<void> fetchEpisodes({bool reset = false}) async {
     if (reset) {
       _currentPage = 1;
@@ -65,7 +62,6 @@ class EpisodeProvider extends ChangeNotifier {
     }
   }
 
-  /// Carrega a próxima página (Carregar Mais - RF01)
   Future<void> loadMoreEpisodes() async {
     if (_isLoadingMore || !hasMorePages) return;
 
@@ -83,7 +79,6 @@ class EpisodeProvider extends ChangeNotifier {
       _currentPage = nextPage;
       _totalPages = response.info.pages;
 
-      // Evita duplicatas ao adicionar à lista
       final existingIds = _episodes.map((e) => e.id).toSet();
       for (final newEp in response.results) {
         if (!existingIds.contains(newEp.id)) {
@@ -98,7 +93,6 @@ class EpisodeProvider extends ChangeNotifier {
     }
   }
 
-  /// Define a busca textual (RF08)
   Future<Episode?> searchDirectEpisode(String query) async {
     _searchQuery = query.trim();
     if (_searchQuery.isEmpty) {
@@ -134,7 +128,6 @@ class EpisodeProvider extends ChangeNotifier {
     }
   }
 
-  /// Aplica múltiplos filtros (Nome, Temporada/Código, Data de Lançamento)
   Future<void> applyFilters({
     String? name,
     String? season,
@@ -146,7 +139,6 @@ class EpisodeProvider extends ChangeNotifier {
     await fetchEpisodes(reset: true);
   }
 
-  /// Limpa todos os filtros
   Future<void> clearFilters() async {
     _searchQuery = '';
     _filterSeason = '';

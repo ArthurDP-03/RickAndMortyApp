@@ -5,7 +5,6 @@ import 'package:rick_and_morty_app/config/app_colors.dart';
 import 'package:rick_and_morty_app/providers/episode_provider.dart';
 import 'package:rick_and_morty_app/screens/details/episode_details_screen.dart';
 
-/// Barra de Pesquisa com TextField, TextEditingController e Botão Buscar (RF08)
 class CatalogSearchBar extends StatefulWidget {
   final VoidCallback? onFilterTap;
 
@@ -41,7 +40,6 @@ class _CatalogSearchBarState extends State<CatalogSearchBar> {
     setState(() => _isSearching = false);
 
     if (matchedEpisode != null) {
-      // Navega direto para a tela de detalhes do item encontrado (RF08)
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (_) => EpisodeDetailsScreen(episode: matchedEpisode),
@@ -63,7 +61,6 @@ class _CatalogSearchBarState extends State<CatalogSearchBar> {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
         children: [
-          // Campo de Busca
           Expanded(
             child: Container(
               height: 48,
@@ -112,8 +109,6 @@ class _CatalogSearchBarState extends State<CatalogSearchBar> {
             ),
           ),
           const SizedBox(width: 8),
-
-          // Botão "Buscar" (RF08)
           SizedBox(
             height: 48,
             child: ElevatedButton(
@@ -145,8 +140,6 @@ class _CatalogSearchBarState extends State<CatalogSearchBar> {
                     ),
             ),
           ),
-
-          // Botão de Filtro Avançado
           if (widget.onFilterTap != null) ...[
             const SizedBox(width: 6),
             Container(

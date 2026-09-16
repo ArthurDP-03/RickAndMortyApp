@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty_app/config/app_colors.dart';
 
-/// Indicador de Carregamento Temático com Feedback de Acessibilidade (RF09, RF10)
 class LoadingIndicator extends StatelessWidget {
   final String message;
   final double size;

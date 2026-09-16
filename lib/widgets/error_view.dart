@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:rick_and_morty_app/config/app_colors.dart';
 import 'package:rick_and_morty_app/widgets/custom_button.dart';
 
-/// Tela de Feedback de Erro Amigável com Opção de Recarregar (RF09, RF10)
 class ErrorView extends StatelessWidget {
   final String message;
   final VoidCallback? onRetry;

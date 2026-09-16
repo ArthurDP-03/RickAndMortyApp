@@ -4,7 +4,6 @@ import 'package:rick_and_morty_app/config/app_colors.dart';
 import 'package:rick_and_morty_app/providers/favorites_provider.dart';
 import 'package:rick_and_morty_app/providers/watched_provider.dart';
 
-/// Barra de Navegação Inferior com Ícones Temáticos Rick and Morty
 class CustomBottomNav extends StatelessWidget {
   final int currentIndex;
   final ValueChanged<int> onTap;
@@ -44,23 +43,18 @@ class CustomBottomNav extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              // 1. Catálogo de Episódios (Ícone Portal)
               _buildNavItem(
                 index: 0,
                 icon: Icons.blur_circular_rounded,
                 label: 'Catálogo',
                 semanticLabel: 'Aba Catálogo de Episódios',
               ),
-
-              // 2. Perfil do Usuário (Ícone Perfil)
               _buildNavItem(
                 index: 1,
                 icon: Icons.person_rounded,
                 label: 'Perfil',
                 semanticLabel: 'Aba Perfil do Usuário',
               ),
-
-              // 3. Episódios Favoritos (Ícone Coração Gosma Verde)
               _buildNavItem(
                 index: 2,
                 icon: Icons.favorite_rounded,
@@ -69,8 +63,6 @@ class CustomBottomNav extends StatelessWidget {
                 badgeColor: AppColors.portalLime,
                 semanticLabel: 'Aba Episódios Favoritos',
               ),
-
-              // 4. Episódios Assistidos (Ícone Olho Temático)
               _buildNavItem(
                 index: 3,
                 icon: Icons.remove_red_eye_rounded,

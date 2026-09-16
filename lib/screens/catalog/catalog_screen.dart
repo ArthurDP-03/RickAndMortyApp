@@ -9,7 +9,6 @@ import 'package:rick_and_morty_app/widgets/custom_button.dart';
 import 'package:rick_and_morty_app/widgets/error_view.dart';
 import 'package:rick_and_morty_app/widgets/loading_indicator.dart';
 
-/// Tela Principal — Catálogo Interativo de Episódios (RF01)
 class CatalogScreen extends StatefulWidget {
   const CatalogScreen({super.key});
 
@@ -44,7 +43,6 @@ class _CatalogScreenState extends State<CatalogScreen> {
     final episodes = episodeProvider.episodes;
     final width = MediaQuery.of(context).size.width;
 
-    // Responsividade Dinâmica (Mobile, Tablet, Desktop)
     int crossAxisCount = 2;
     if (width > 1200) {
       crossAxisCount = 5;
@@ -67,12 +65,9 @@ class _CatalogScreenState extends State<CatalogScreen> {
       ),
       body: Column(
         children: [
-          // Barra de Pesquisa e Filtros (RF08)
           CatalogSearchBar(
             onFilterTap: _openFilterModal,
           ),
-
-          // Chips de Filtros Ativos
           if (episodeProvider.searchQuery.isNotEmpty ||
               episodeProvider.filterSeason.isNotEmpty ||
               episodeProvider.filterAirDate.isNotEmpty)
@@ -113,8 +108,6 @@ class _CatalogScreenState extends State<CatalogScreen> {
                 ),
               ),
             ),
-
-          // Conteúdo Principal com Feedback de UI (RF09)
           Expanded(
             child: Builder(
               builder: (context) {
@@ -171,7 +164,6 @@ class _CatalogScreenState extends State<CatalogScreen> {
                   onRefresh: () => episodeProvider.fetchEpisodes(reset: true),
                   child: CustomScrollView(
                     slivers: [
-                      // Grade Responsiva de Episódios (RF01)
                       SliverPadding(
                         padding: const EdgeInsets.all(14),
                         sliver: SliverGrid(
@@ -190,8 +182,6 @@ class _CatalogScreenState extends State<CatalogScreen> {
                           ),
                         ),
                       ),
-
-                      // Botão "Carregar Mais" / Indicador de Fim (RF01)
                       SliverToBoxAdapter(
                         child: Padding(
                           padding: const EdgeInsets.only(

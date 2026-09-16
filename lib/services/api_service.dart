@@ -5,7 +5,6 @@ import 'package:rick_and_morty_app/models/api_response.dart';
 import 'package:rick_and_morty_app/models/character_model.dart';
 import 'package:rick_and_morty_app/models/episode_model.dart';
 
-/// Serviço de Comunicação com a API Pública do Rick and Morty
 class ApiService {
   final http.Client _client;
 
@@ -13,7 +12,6 @@ class ApiService {
 
   String get _baseUrl => EnvConfig.apiBaseUrl;
 
-  /// Busca lista paginada de episódios com filtros opcionais
   Future<ApiResponse<Episode>> getEpisodes({
     int page = 1,
     String? name,
@@ -48,7 +46,6 @@ class ApiService {
 
         return ApiResponse(info: info, results: results);
       } else if (response.statusCode == 404) {
-        // Quando a API não encontra nenhum resultado para o filtro
         return ApiResponse(
           info: ApiPageInfo(count: 0, pages: 0),
           results: [],
@@ -64,7 +61,6 @@ class ApiService {
     }
   }
 
-  /// Busca um episódio específico por ID
   Future<Episode> getEpisodeById(int id) async {
     final uri = Uri.parse('$_baseUrl/episode/$id');
     try {
@@ -86,15 +82,13 @@ class ApiService {
     }
   }
 
-  /// Busca lista de personagens a partir de suas URLs
   Future<List<Character>> getCharactersByUrls(List<String> urls) async {
     if (urls.isEmpty) return [];
 
-    // Extrair IDs das URLs (ex: https://rickandmortyapi.com/api/character/1 -> 1)
     final ids = urls
         .map((url) => RegExp(r'/(\d+)$').firstMatch(url)?.group(1))
         .whereType<String>()
-        .take(20) // Limite de 20 para carregar ágil e economizar dados
+        .take(20)
         .toList();
 
     if (ids.isEmpty) return [];

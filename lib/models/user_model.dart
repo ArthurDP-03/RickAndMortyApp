@@ -1,4 +1,3 @@
-/// Modelo de Usuário para autenticação e perfil
 class UserModel {
   final String id;
   final String name;

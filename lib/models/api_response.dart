@@ -1,4 +1,3 @@
-/// Modelo de Informações de Paginação da API Rick and Morty
 class ApiPageInfo {
   final int count;
   final int pages;
@@ -22,7 +21,6 @@ class ApiPageInfo {
   }
 }
 
-/// Wrapper de resposta paginada para listas
 class ApiResponse<T> {
   final ApiPageInfo info;
   final List<T> results;

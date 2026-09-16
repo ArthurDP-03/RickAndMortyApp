@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rick_and_morty_app/models/episode_model.dart';
 import 'package:rick_and_morty_app/models/user_model.dart';
 
-/// Camada de persistencia em nuvem por usuario no Firestore.
 class FirebaseUserDataService {
   FirebaseUserDataService({FirebaseFirestore? firestore})
       : _firestore = firestore ?? FirebaseFirestore.instance;

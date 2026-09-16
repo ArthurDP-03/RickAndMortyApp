@@ -6,7 +6,6 @@ import 'package:rick_and_morty_app/providers/favorites_provider.dart';
 import 'package:rick_and_morty_app/screens/catalog/widgets/episode_grid_card.dart';
 import 'package:rick_and_morty_app/widgets/custom_button.dart';
 
-/// Tela de Episódios Favoritos em Ordem Crescente (RF04, RF05, RF06)
 class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({super.key});
 
@@ -15,7 +14,7 @@ class FavoritesScreen extends StatefulWidget {
 }
 
 class _FavoritesScreenState extends State<FavoritesScreen> {
-  int _displayedLimit = 10; // 10 episódios por página
+  int _displayedLimit = 10;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     final allFavorites = favoritesProvider.favorites;
     final width = MediaQuery.of(context).size.width;
 
-    // Paginação local de 10 por 10 conforme RF
     final visibleFavorites = allFavorites.take(_displayedLimit).toList();
     final hasMore = visibleFavorites.length < allFavorites.length;
 
@@ -109,8 +107,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     ),
                   ),
                 ),
-
-                // Botão "Carregar Mais" quando há mais de 10 itens
                 if (hasMore)
                   SliverToBoxAdapter(
                     child: Padding(

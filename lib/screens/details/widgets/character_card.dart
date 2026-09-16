@@ -4,7 +4,6 @@ import 'package:rick_and_morty_app/config/app_colors.dart';
 import 'package:rick_and_morty_app/models/character_model.dart';
 import 'package:rick_and_morty_app/widgets/cartoon_card.dart';
 
-/// Card de Personagem do Episódio com Avatar, Nome e Espécie (RF03)
 class CharacterCard extends StatelessWidget {
   final Character character;
 
@@ -33,7 +32,6 @@ class CharacterCard extends StatelessWidget {
           'Personagem ${character.name}, status ${character.status}, espécie ${character.species}',
       child: Row(
         children: [
-          // Avatar Circular
           Container(
             width: 48,
             height: 48,
@@ -62,8 +60,6 @@ class CharacterCard extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10),
-
-          // Nome e Detalhes
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
