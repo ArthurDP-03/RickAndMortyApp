@@ -22,7 +22,7 @@ class AuthService {
   FirebaseUserDataService get _userDataService =>
       _firebaseUserDataService ??= FirebaseUserDataService();
 
-  GoogleSignIn get _googleSignIn => GoogleSignIn(scopes: ['email']);
+  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
 
   Future<UserModel> login({
     required String email,
@@ -88,9 +88,9 @@ class AuthService {
 
     try {
       if (kIsWeb) {
-        final userCredential = await _auth.signInWithPopup(
-          GoogleAuthProvider(),
-        );
+        final provider = GoogleAuthProvider();
+        provider.setCustomParameters({'prompt': 'select_account'});
+        final userCredential = await _auth.signInWithPopup(provider);
 
         final firebaseUser = userCredential.user;
         if (firebaseUser == null) {
@@ -117,6 +117,11 @@ class AuthService {
         await LocalStorageService.saveCurrentUser(user);
         return user;
       }
+
+      // Garante que o seletor de contas do Google apareça no Mobile
+      try {
+        await _googleSignIn.signOut();
+      } catch (_) {}
 
       final googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
@@ -238,6 +243,10 @@ class AuthService {
   Future<void> logout() async {
     if (_isFirebaseReady) {
       await _auth.signOut();
+      try {
+        await _googleSignIn.signOut();
+        await _googleSignIn.disconnect();
+      } catch (_) {}
     }
     await LocalStorageService.clearSession();
   }
