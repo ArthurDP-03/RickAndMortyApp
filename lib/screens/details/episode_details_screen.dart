@@ -228,16 +228,6 @@ class _EpisodeDetailsScreenState extends State<EpisodeDetailsScreen> {
                         label: 'Código (episode)',
                         value: episode.episode,
                       ),
-                      _buildInfoRow(
-                        icon: Icons.link_rounded,
-                        label: 'Endpoint API (url)',
-                        value: episode.url,
-                      ),
-                      _buildInfoRow(
-                        icon: Icons.schedule_rounded,
-                        label: 'Registro no Banco (created)',
-                        value: episode.created,
-                      ),
                     ],
                   ),
                 ),
