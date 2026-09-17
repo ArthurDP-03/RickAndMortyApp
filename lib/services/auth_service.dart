@@ -118,7 +118,6 @@ class AuthService {
         return user;
       }
 
-      // Garante que o seletor de contas do Google apareça no Mobile
       try {
         await _googleSignIn.signOut();
       } catch (_) {}
