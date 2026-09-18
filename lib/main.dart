@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:provider/provider.dart';
 import 'package:rick_and_morty_app/config/app_theme.dart';
 import 'package:rick_and_morty_app/config/env_config.dart';
-import 'package:rick_and_morty_app/firebase_options.dart';
+import 'package:rick_and_morty_app/config/firebase_options.dart';
 import 'package:rick_and_morty_app/providers/auth_provider.dart';
 import 'package:rick_and_morty_app/providers/episode_provider.dart';
 import 'package:rick_and_morty_app/providers/favorites_provider.dart';
@@ -18,7 +18,7 @@ void main() async {
 
   await EnvConfig.initialize();
 
-  if (kIsWeb || EnvConfig.isFirebaseConfigured) {
+  if (EnvConfig.isFirebaseConfigured) {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );

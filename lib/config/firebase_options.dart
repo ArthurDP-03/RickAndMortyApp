@@ -3,14 +3,6 @@ import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb, Tar
 import 'package:rick_and_morty_app/config/env_config.dart';
 
 class DefaultFirebaseOptions {
-  static const String _webApiKey = 'AIzaSyDKSwkuvPt85MKovrg6XMwXGvdmMufQgVE';
-  static const String _webAppId = '1:66954574456:web:7008b1f63ab360c89a4b8d';
-  static const String _webProjectId = 'rickandmorty-5bdf9';
-  static const String _webMessagingSenderId = '66954574456';
-  static const String _webStorageBucket = 'rickandmorty-5bdf9.firebasestorage.app';
-  static const String _webAuthDomain = 'rickandmorty-5bdf9.firebaseapp.com';
-  static const String _webMeasurementId = 'G-BTDN5JR1LS';
-
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
       return web;
@@ -25,19 +17,25 @@ class DefaultFirebaseOptions {
         return ios;
       default:
         throw UnsupportedError(
-          'DefaultFirebaseOptions nao foi configurado para esta plataforma.',
+          'DefaultFirebaseOptions não foi configurado para esta plataforma.',
         );
     }
   }
 
   static FirebaseOptions get web => FirebaseOptions(
-      apiKey: _webApiKey,
-      appId: _webAppId,
-      messagingSenderId: _webMessagingSenderId,
-      projectId: _webProjectId,
-      authDomain: _webAuthDomain,
-      storageBucket: _webStorageBucket,
-      measurementId: _webMeasurementId,
+        apiKey: EnvConfig.firebaseApiKey,
+        appId: EnvConfig.firebaseAppId,
+        messagingSenderId: EnvConfig.firebaseMessagingSenderId,
+        projectId: EnvConfig.firebaseProjectId,
+        authDomain: EnvConfig.firebaseAuthDomain.isNotEmpty
+            ? EnvConfig.firebaseAuthDomain
+            : null,
+        storageBucket: EnvConfig.firebaseStorageBucket.isNotEmpty
+            ? EnvConfig.firebaseStorageBucket
+            : null,
+        measurementId: EnvConfig.firebaseMeasurementId.isNotEmpty
+            ? EnvConfig.firebaseMeasurementId
+            : null,
       );
 
   static FirebaseOptions get android => FirebaseOptions(
@@ -45,7 +43,9 @@ class DefaultFirebaseOptions {
         appId: EnvConfig.firebaseAppId,
         messagingSenderId: EnvConfig.firebaseMessagingSenderId,
         projectId: EnvConfig.firebaseProjectId,
-        storageBucket: EnvConfig.firebaseStorageBucket,
+        storageBucket: EnvConfig.firebaseStorageBucket.isNotEmpty
+            ? EnvConfig.firebaseStorageBucket
+            : null,
       );
 
   static FirebaseOptions get ios => FirebaseOptions(
@@ -53,7 +53,9 @@ class DefaultFirebaseOptions {
         appId: EnvConfig.firebaseAppId,
         messagingSenderId: EnvConfig.firebaseMessagingSenderId,
         projectId: EnvConfig.firebaseProjectId,
-        storageBucket: EnvConfig.firebaseStorageBucket,
+        storageBucket: EnvConfig.firebaseStorageBucket.isNotEmpty
+            ? EnvConfig.firebaseStorageBucket
+            : null,
         iosBundleId: 'com.example.rickAndMortyApp',
       );
 }
