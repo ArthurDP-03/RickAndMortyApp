@@ -6,6 +6,7 @@ class EnvConfig {
     try {
       await dotenv.load(fileName: '.env');
     } catch (e) {
+      // Optional in production web deploys; Firebase can use fallback options.
     }
   }
 

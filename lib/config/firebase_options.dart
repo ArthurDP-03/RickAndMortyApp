@@ -22,20 +22,20 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static FirebaseOptions get web => FirebaseOptions(
+    static FirebaseOptions get web => FirebaseOptions(
         apiKey: EnvConfig.firebaseApiKey,
         appId: EnvConfig.firebaseAppId,
         messagingSenderId: EnvConfig.firebaseMessagingSenderId,
         projectId: EnvConfig.firebaseProjectId,
-        authDomain: EnvConfig.firebaseAuthDomain.isNotEmpty
-            ? EnvConfig.firebaseAuthDomain
-            : null,
-        storageBucket: EnvConfig.firebaseStorageBucket.isNotEmpty
-            ? EnvConfig.firebaseStorageBucket
-            : null,
-        measurementId: EnvConfig.firebaseMeasurementId.isNotEmpty
-            ? EnvConfig.firebaseMeasurementId
-            : null,
+      authDomain: EnvConfig.firebaseAuthDomain.isNotEmpty
+        ? EnvConfig.firebaseAuthDomain
+          : null,
+      storageBucket: EnvConfig.firebaseStorageBucket.isNotEmpty
+        ? EnvConfig.firebaseStorageBucket
+          : null,
+      measurementId: EnvConfig.firebaseMeasurementId.isNotEmpty
+        ? EnvConfig.firebaseMeasurementId
+          : null,
       );
 
   static FirebaseOptions get android => FirebaseOptions(

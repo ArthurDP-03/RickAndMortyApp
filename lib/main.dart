@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:provider/provider.dart';
 import 'package:rick_and_morty_app/config/app_theme.dart';
 import 'package:rick_and_morty_app/config/env_config.dart';
